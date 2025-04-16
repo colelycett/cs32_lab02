@@ -50,6 +50,7 @@ StudentRoll::~StudentRoll() {
   Node* clear = head;
   while (clear != NULL) {
     Node* ahead = clear->next;
+    delete clear->s;
     delete clear;
     clear = ahead;
     if (ahead != NULL) {
