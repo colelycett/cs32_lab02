@@ -6,20 +6,56 @@ StudentRoll::StudentRoll() {
 }
 
 void StudentRoll::insertAtTail(const Student &s) {
-  // STUB
+  if (head == NULL) {
+    head = new Node;
+    head->s = new Student(s);
+    head->next = NULL;
+    tail = head;
+    return;
+  }
+
+  tail->next = new Node;
+  tail->next->s = new Student(s);
+  tail->next->next = NULL;
+  tail = tail->next;
+  return;
+
 }
 
 std::string StudentRoll::toString() const {
-  return "stub";
+  std::string rval = "[";
+  Node* iter = head;
+  while (iter != NULL) {
+    rval += iter->s->toString();
+    iter = iter->next;
+    if (iter != NULL) {
+      rval += ",";
+    }
+  }
+  rval += "]";
+  return rval;
 }
 
 StudentRoll::StudentRoll(const StudentRoll &orig) {
-  // STUB
+
   head = tail = NULL;
+  Node* write = orig.head;
+  while (write != NULL) {
+    this->insertAtTail(*write->s);
+    write = write->next;
+  }
 }
 
 StudentRoll::~StudentRoll() {
-  // STUB
+  Node* clear = head;
+  while (clear != NULL) {
+    Node* ahead = clear->next;
+    delete clear;
+    clear = ahead;
+    if (ahead != NULL) {
+      ahead = ahead->next;
+    }
+  }
 }
 
 StudentRoll & StudentRoll::operator =(const StudentRoll &right ) {
